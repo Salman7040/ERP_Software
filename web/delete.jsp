@@ -89,7 +89,7 @@
                                 Connection con;
                                 Class.forName("com.mysql.cj.jdbc.Driver");
                                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
-                                        + "dbemp?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root");
+                                        + "mydb1?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root1234");
                                 st = con.createStatement();
                                 id = request.getParameter("hide");
                                 if (id != null) {
@@ -115,19 +115,10 @@
                         <input type="text" size="30" id="t1">
                     </td>
                 </tr>
-                 <tr>
-                    <td></td>
-                    <td>
-                        Item Price :
-                    </td>
-                    <td>
-                        <input type="number" size="10" id="t4">
-                    </td>
-                </tr>
                 <tr>
                     <td></td>
                     <td>
-                        Item Quantity :
+                        Item Price :
                     </td>
                     <td>
                         <input type="number" size="10" id="t2">
@@ -136,10 +127,19 @@
                 <tr>
                     <td></td>
                     <td>
+                        Item Quantity :
+                    </td>
+                    <td>
+                        <input type="number" size="10" id="t3">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
                         Item Description:
                     </td>
                     <td>
-                        <textarea name="t3" id="t3" cols="25" rows="2"></textarea>
+                        <textarea name="t3" id="t4" cols="25" rows="2"></textarea>
                     </td>
                 </tr>
             </table>

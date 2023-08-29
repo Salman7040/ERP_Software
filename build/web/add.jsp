@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
 <%@page import="java.io.*"%>
 <%@page import="java.sql.*"%> 
@@ -148,7 +149,7 @@
             Connection con;
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
-                    + "dbemp?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root");
+                    + "mydb1?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root1234");
             st = con.createStatement();
             String col = "", row = "";
 
@@ -167,18 +168,18 @@
             r = Integer.parseInt(row);
             String str[][];
             str = new String[r][c];
-            int i = 0;
-
+            int k = 0;
             while (rs3.next()) {
                 for (int j = 0; j < c; j++) {
-                    str[i][j] = rs3.getString(j + 1);
+                    str[k][j] = rs3.getString(j + 1);
+
                 }
-                i++;
+                k++;
             }
 
             String vis = "visible";
             if (id != null || name != null || quan != null || des1 != null || price != null) {
-                boolean b1 = st.execute("insert into erp_ac values('" + id + "','" + name + "'," + quan + ",'" + des1 + "'," + price + ")");
+                    boolean b1 = st.execute("insert into erp_ac values('" + id + "','" + name + "'," + price + "," + quan + ",'" + des1 + "')");
                 if (b1 == false) {
         %>
 
@@ -203,54 +204,69 @@
             con.close();
         %>
 
-        <script >
-
-            let a = [];
-            let row = "<%=row%>";
-            let col = "<%=col%>";
-
-            let j = 0;
-            let i = 0;
-            <%
-                for (int k = 0; k < str.length; k++) {
-            %>
-            a[i] = [];
-            j = 0;
-            <%
-                for (int j = 0; j < str[k].length; j++) {
-            %>
-            a[i][j] = "<%=str[k][j]%>";
-            j++;
-            <%
-                }%>
-            i++;
-            <%
-                }
-            %>
 
 
-            let main = document.getElementById("main")
-            let txt = document.getElementsByClassName("txt");
 
-            function  oncall() {
-                for (let i = 0; i < row; i++) {
-                    if (main.value == a[i][0]) {
-                        for (let j = 0; j < col - 1; j++) {
-                            txt[j].value = a[i][j + 1];
-                        }
-                    }//if 
-                    else {
-                        if (i == 0) {
-                            for (let j = 0; j < col - 1; j++) {
-                                txt[j].value = " ";
-                            }
-                        }//flag
-                    }//else
-
-                }//big for
-            }
-        </script>
 
     </body>
+    <script>
 
+        let a;
+        let data = [];
+        let data2 = [];
+        let row1 = "<%=row%>";
+        let col1 = "<%=col%>";
+        let r = parseInt(row1);
+        let c = parseInt(col1);
+
+
+
+
+        a = "<%
+            for (int i = 0; i < str.length; i++) {
+
+                for (int j = 0; j < str[i].length; j++) {
+                    out.print(str[i][j] + "/");
+                }
+
+            }
+        %>";
+
+
+
+        data2 = a.split("/");
+        
+        let inc = 0;
+        for (let i = 0; i < r; i++) {
+            data[i] = [];
+            for (let j = 0; j < c; j++) {
+                data[i][j] = data2[inc];
+                inc++;
+            }          
+        }
+
+        
+        console.log(data)
+        let main = document.getElementById("main");
+        let txt = document.getElementsByClassName("txt");
+
+        function  oncall() {
+
+            for (let i = 0; i < r; i++) {
+                if (main.value == data[i][0]) {
+                    for (let j = 0; j < c - 1; j++) {
+                        txt[j].value = data[i][j + 1];
+                    }
+                }//if 
+                else {
+                    if (i == 0) {
+                        for (let j = 0; j < c - 1; j++) {
+                            txt[j].value = " ";
+                        }
+                    }//flag
+                }//else
+
+            }//big for
+        }
+    </script>      
 </html>

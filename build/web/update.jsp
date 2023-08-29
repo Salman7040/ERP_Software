@@ -80,20 +80,20 @@
                         <select id="selected" onchange="fill()">
                             <option>--Select Id--</option>
                             <%
-                                String id, name, quantity, description,price;
+                                String id, name, quantity, description, price;
                                 Statement st;
                                 Connection con;
                                 Class.forName("com.mysql.cj.jdbc.Driver");
                                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
-                                        + "dbemp?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root");
+                                        + "mydb1?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "root1234");
                                 st = con.createStatement();
                                 id = request.getParameter("hide");
                                 name = request.getParameter("t1");
                                 quantity = request.getParameter("t2");
                                 description = request.getParameter("t3");
                                 price = request.getParameter("t4");
-                                String data = "update erp_ac set s_name='" + name + "',s_quan=" + quantity + ",s_description='" + description + "',s_rate="+price+"  where s_id='" + id + "'   ";
-                                if (id != null || name != null || quantity != null || description != null || price!=null) {
+                                String data = "update erp_ac set s_name='" + name + "',s_quan=" + quantity + ",s_description='" + description + "',s_rate=" + price + "  where s_id='" + id + "'   ";
+                                if (id != null || name != null || quantity != null || description != null || price != null) {
                                     st.execute(data);
                                 }
                                 ResultSet rs = st.executeQuery("select * from erp_ac");
@@ -120,7 +120,7 @@
                         Item Price :
                     </td>
                     <td>
-                        <input type="number" size="10" name="t4" id="t4">
+                        <input type="number" size="10" name="t4" id="t2">
                     </td>
                 </tr>
                 <tr>
@@ -129,7 +129,7 @@
                         Item Quantity :
                     </td>
                     <td>
-                        <input type="number" size="10" name="t2" id="t2">
+                        <input type="number" size="10" name="t2" id="t3">
                     </td>
                 </tr>
                 <tr>
@@ -138,7 +138,7 @@
                         Item Description:
                     </td>
                     <td>
-                        <textarea name="t3" id="t3" cols="25" rows="2"></textarea>
+                        <textarea name="t3" id="t4" cols="25" rows="2"></textarea>
                     </td>
                 </tr>
             </table>
